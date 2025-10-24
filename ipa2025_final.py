@@ -14,7 +14,7 @@ import restconf_final
 import netconf_final
 from netmiko_final import read_motd
 from ansible_final import edit_motd
-from fine_iparoom import get_room_id
+from find_iparoom import get_room_id
 import os
 from dotenv import load_dotenv
 load_dotenv()
