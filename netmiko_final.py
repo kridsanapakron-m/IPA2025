@@ -57,7 +57,7 @@ def read_motd(router_ip):
 
     try:
         with ConnectHandler(**device_params) as ssh:
-            output = ssh.send_command("show banner motd")
+            output = ssh.send_command("show banner motd",use_textfsm=True)
             print(output)
             if not output.strip():
                 return "Error: No MOTD Configured"
