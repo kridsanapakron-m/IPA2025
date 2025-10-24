@@ -12,8 +12,8 @@ import glob
 import requests
 import restconf_final
 import netconf_final
-from netmiko_final import gigabit_status
-from ansible_final import showrun
+from netmiko_final import read_motd
+from ansible_final import edit_motd
 from fine_iparoom import get_room_id
 import os
 from dotenv import load_dotenv
@@ -100,12 +100,18 @@ while True:
         else:
             responseMessage = "Error: No IP specified"
 
-    elif len(tokens) == 2:
+    elif len(tokens) >= 2:
         # case"/66070006 10.0.15.61 create"
         router_ip = tokens[0]
         command = tokens[1]
 
-        if command_type == 0:
+        if command == "motd" and router_ip is not None:
+            #/66070123 10.0.15.61 motd Authorized users only! Managed by 66070123
+            if len(tokens) >= 8 and tokens[2] == "Authorized" and tokens[3] == "users" and tokens[4] == "only!" and tokens[5] == "Managed" and tokens[6] == "by" and tokens[7] == student_id:
+                responseMessage = edit_motd(router_ip, student_id)
+            else:
+                responseMessage = read_motd(router_ip)
+        elif command_type == 0:
             responseMessage = "Error: No method specified"
         elif not router_ip:
             responseMessage = "Error: No IP specified"
