@@ -52,7 +52,7 @@ def create(studentID, router_ip):
 
     resp = requests.put(url, data=json.dumps(yangConfig), auth=basicauth, headers=headers, verify=False)
     if 200 <= resp.status_code <= 299:
-        return f"Interface loopback {studentID} is created successfully"
+        return f"Interface loopback {studentID} is created successfully using Restconf"
     else:
         return f"Cannot create: Interface loopback {studentID}"
 
@@ -68,7 +68,7 @@ def delete(studentID, router_ip):
 
     resp = requests.delete(url, auth=basicauth, headers=headers, verify=False)
     if 200 <= resp.status_code <= 299:
-        return f"Interface loopback {studentID} is deleted successfully"
+        return f"Interface loopback {studentID} is deleted successfully using Restconf"
     else:
         return f"Cannot delete: Interface loopback {studentID}"
 
@@ -85,7 +85,7 @@ def enable(studentID, router_ip):
     data = {"ietf-interfaces:interface": {"enabled": True}}
     resp = requests.patch(url, data=json.dumps(data), auth=basicauth, headers=headers, verify=False)
     if 200 <= resp.status_code <= 299:
-        return f"Interface loopback {studentID} is enabled successfully"
+        return f"Interface loopback {studentID} is enabled successfully using Restconf"
     else:
         return f"Cannot enable: Interface loopback {studentID}"
 
@@ -102,7 +102,7 @@ def disable(studentID, router_ip):
     data = {"ietf-interfaces:interface": {"enabled": False}}
     resp = requests.patch(url, data=json.dumps(data), auth=basicauth, headers=headers, verify=False)
     if 200 <= resp.status_code <= 299:
-        return f"Interface loopback {studentID} is shutdowned successfully"
+        return f"Interface loopback {studentID} is shutdowned successfully using Restconf"
     else:
         return f"Cannot shutdown: Interface loopback {studentID}"
 
@@ -117,6 +117,6 @@ def status(studentID, router_ip):
         data = resp.json()
         enabled = data["ietf-interfaces:interface"]["enabled"]
         state = "enabled" if enabled else "disabled"
-        return f"Interface loopback {studentID} is {state}"
+        return f"Interface loopback {studentID} is {state} (checked by Restconf)"
     else:
         return f"No Interface loopback {studentID}"

@@ -48,7 +48,7 @@ def create(studentID, router_ip):
         """
         reply = m.edit_config(target="running", config=netconf_config)
         if "<ok/>" in reply.xml:
-            return f"Interface loopback {studentID} is created successfully"
+            return f"Interface loopback {studentID} is created successfully using Netconf"
         else:
             return f"Cannot create: Interface loopback {studentID}"
     except Exception as e:
@@ -73,7 +73,7 @@ def delete(studentID, router_ip):
         """
         reply = m.edit_config(target="running", config=netconf_config)
         if "<ok/>" in reply.xml:
-            return f"Interface loopback {studentID} is deleted successfully"
+            return f"Interface loopback {studentID} is deleted successfully using Netconf"
         else:
             return f"Cannot delete: Interface loopback {studentID}"
     except Exception as e:
@@ -99,7 +99,7 @@ def enable(studentID, router_ip):
         """
         reply = m.edit_config(target="running", config=netconf_config)
         if "<ok/>" in reply.xml:
-            return f"Interface loopback {studentID} is enabled successfully"
+            return f"Interface loopback {studentID} is enabled successfully using Netconf"
         else:
             return f"Cannot enable: Interface loopback {studentID}"
     except Exception as e:
@@ -125,7 +125,7 @@ def disable(studentID, router_ip):
         """
         reply = m.edit_config(target="running", config=netconf_config)
         if "<ok/>" in reply.xml:
-            return f"Interface loopback {studentID} is shutdowned successfully"
+            return f"Interface loopback {studentID} is shutdowned successfully using Netconf"
         else:
             return f"Cannot shutdown: Interface loopback {studentID}"
     except Exception as e:
@@ -156,9 +156,9 @@ def status(studentID, router_ip):
             admin_status = interface_data.get("admin-status")
             oper_status = interface_data.get("oper-status")
             if admin_status == "up" and oper_status == "up":
-                return f"Interface loopback {studentID} is enabled"
+                return f"Interface loopback {studentID} is enabled (checked by Netconf)"
             elif admin_status == "down" and oper_status == "down":
-                return f"Interface loopback {studentID} is disabled"
+                return f"Interface loopback {studentID} is disabled (checked by Netconf)"
         else:
             return f"No Interface loopback {studentID}"
     except Exception as e:
