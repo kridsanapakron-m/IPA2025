@@ -36,6 +36,6 @@ def edit_motd(router_ip, motd_message):
         if "no hosts matched" in result_text:
             return "Error: No hosts matched — check playbook host name"
         elif "No existing session" in result_text or "timed out" in result_text:
-            return edit_motd(router_ip, student_id)
+            return edit_motd(router_ip, motd_message)
         return "Error: Ansible"
 
