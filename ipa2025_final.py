@@ -107,8 +107,9 @@ while True:
 
         if command == "motd" and router_ip is not None:
             #/66070123 10.0.15.61 motd Authorized users only! Managed by 66070123
-            if len(tokens) >= 8 and tokens[2] == "Authorized" and tokens[3] == "users" and tokens[4] == "only!" and tokens[5] == "Managed" and tokens[6] == "by" and tokens[7] == student_id:
-                responseMessage = edit_motd(router_ip, student_id)
+            if len(tokens) >= 3:
+                motd_message = " ".join(tokens[2:])
+                responseMessage = edit_motd(router_ip, motd_message)
             else:
                 responseMessage = read_motd(router_ip)
         elif command_type == 0:

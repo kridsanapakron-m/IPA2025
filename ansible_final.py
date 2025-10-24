@@ -14,9 +14,8 @@ def showrun():
         if "No existing session" in result or "timed out" in result:
             showrun()
         return "Error: Ansible"
-def edit_motd(router_ip, student_id):
+def edit_motd(router_ip, motd_message):
     playbook_file = "playbook_edit_motd.yaml"
-    motd_message = f"Authorized users only! Managed by {student_id}"
 
     inventory_inline = "router,"
     command = [
