@@ -1,0 +1,20 @@
+---
+- name: Save running-config from router
+  hosts: CSR1kv
+  gather_facts: false
+
+  tasks:
+    - name: Get running-config
+      ios_command:
+        commands:
+          - show running-config
+      register: output
+      become: yes
+    - name: HOSTNAME
+      ios_facts:
+      register: facts
+      
+    - name: Save output to temporary file
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "./show_run_66070006_{{ ansible_net_hostname }}.txt"
